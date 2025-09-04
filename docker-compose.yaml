@@ -8,8 +8,8 @@ services:
     - 8080:8080
     - 8443:8443
     volumes:
-    - /opt/obsidian/vaults:/vaults
-    - /opt/obsidian/config:/config
+    - ./obsidian/vaults:/vaults
+    - ./obsidian/config:/config
     environment:
     - PUID=1000
     - PGID=1000
