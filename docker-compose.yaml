@@ -1,22 +1,21 @@
-version: '3.8'
+---
 services:
   obsidian:
-    image: 'ghcr.io/sytone/obsidian-remote:latest'
-    container_name: obsidian-remote
-    restart: unless-stopped
-    ports:
-    - 8080:8080
-    - 8443:8443
-    volumes:
-    - ./vaults:/vaults
-    - ./config:/config
+    image: lscr.io/linuxserver/obsidian:latest
+    container_name: obsidian
+    security_opt:
+      - seccomp:unconfined #optional
     environment:
-    - PUID=1000
-    - PGID=1000
-    - TZ=Australia/Brisbane
-    - DOCKER_MODS=linuxserver/mods:universal-git
-    - CUSTOM_PORT=8080
-    - CUSTOM_HTTPS_PORT=8443
-    - CUSTOM_USER=
-    - PASSWORD=
-    - SUBFOLDER=
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Brisbane
+    volumes:
+      - ./config:/config
+      - ./vaults:/vaults
+    ports:
+      - 3000:3000
+      - 3001:3001
+    devices:
+      - /dev/dri:/dev/dri #optional
+    shm_size: "1gb"
+    restart: unless-stopped
